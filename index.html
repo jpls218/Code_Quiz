@@ -12,22 +12,54 @@
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-    <h2 class="time"></h2>
-    <div id="wrapper">
-        <div id="start-screen" class="start">
-            
-            <h1>Code Quiz</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse a ipsam, quod animi optio aperiam quasi
-                corporis mollitia asperiores unde veniam maxime sunt ratione illo possimus consequuntur quibusdam eaque
-                molestias!</p>
-            <button id="start_button">Start Quiz</button>
-            <div id="questions" class="hide">
-                <p>Hello there</p>
-                <h2 id="question-title"></h2>
-                <div id="choices" class="choices"></div>
+    <header>
+        <strong><a href="highscores.html">HALL OF FAME</a></strong>
+        <span id="timer" class="float-right mr-2">Time: 0</span>
+    </header>
+
+    <!-- Home Screen -->
+    <div class="container mt-5" id="start_page">
+        <div class="row justify-content-center mt-5 pt-3 pb-3">
+            <div class="col-10 col-lg-8 text-center">
+                <h1>Fun Animal Facts Quiz!</h1><br>
+                <h5><p>Have fun taking this short quiz about random animal facts! 
+                  You only have 100 seconds! But beware, every wrong answer costs you 15 seconds!!!! <br></h5>
+                <button type="button" id="startBtn" class="btn btn-info btn-lg">START QUIZ</button>
             </div>
         </div>
     </div>
+
+    <!-- Q&A -->
+    <div class="container mt-5 d-none" id="question_list">
+        <div class="row justify-content-center mt-5 pt-3 pb-3">
+            <div class="col-10 col-lg-8" id="QA-block">
+                <h3 id="questions" class="mb-4">QUESTION</h3>
+                <ul id="answers" class="list-unstyled">
+                    <li class="answerChoice">A) </li>
+                    <li class="answerChoice">B) </li>
+                    <li class="answerChoice">C) </li>
+                    <li class="answerChoice">D) </li>
+                </ul>
+                <p class="feedback"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Finished Screen -->
+    <div class="container mt-5 d-none" id="submit-score">
+        <div class="row justify-content-center mt-5 pt-3 pb-3">
+            <div class="col-10 col-lg-8">
+                <h2>Finished!</h2>
+                <p id="user-score"> </p>
+                <form class="form-group">
+                    <label for="new-score">Enter your name: </label>
+                    <input type="text" id="userName">
+                    <button type="button" class="btn btn-info btn-sm submitBtn">Join Hall Of Fame</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
  
     <!-- Optional JavaScript -->
     <script src= "questions.js"></script>
