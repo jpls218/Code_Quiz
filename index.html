@@ -18,19 +18,19 @@
     </header>
 
     <!-- Home Screen -->
-    <div class="container mt-5" id="start_page">
+    <div class="container" id="start_page">
         <div class="row justify-content-center mt-5 pt-3 pb-3">
             <div class="col-10 col-lg-8 text-center">
-                <h1>Fun Animal Facts Quiz!</h1><br>
-                <h5><p>Have fun taking this short quiz about random animal facts! 
+                <h1 id="openign">Fun Animal Facts Quiz!</h1><br>
+                <p id="opening">Have fun taking this short quiz about random animal facts! 
                   You only have 100 seconds! But beware, every wrong answer costs you 15 seconds!!!! <br></h5>
-                <button type="button" id="startButton" class="btn btn-info btn-lg">START QUIZ</button>
+                <button type="button" id="startButton" class="">START QUIZ</button>
             </div>
         </div>
     </div>
 
     <!-- Q&A -->
-    <div class="container mt-5 d-none" id="question_list">
+    <div class="container d-none" id="question_list">
         <div class="row justify-content-center">
             <div class="col-10 col-lg-8" id="QA-block">
                 <h3 id="questions" class="mb-4">QUESTION</h3>
@@ -46,15 +46,15 @@
     </div>
 
     <!-- Finished Screen -->
-    <div class="container mt-5 d-none" id="submit-score">
+    <div class="container d-none" id="submit-score">
         <div class="row justify-content-center mt-5 pt-3 pb-3">
             <div class="col-10 col-lg-8">
                 <h2>All Done!</h2>
-                <p id="user-score"> </p>
+                <p class="score_for_player" id="user-score"> </p>
                 <form class="form-group">
-                    <label for="new-score">Please enter your name: </label>
+                    <label id= "enter_name" for="new-score">Please enter your name: </label>
                     <input type="text" id="userName">
-                    <button type="button" class="btn btn-info btn-sm submitBtn">Submit your Score</button>
+                    <button type="button" class="submitBtn">Submit your Score</button>
                 </form>
             </div>
         </div>

@@ -97,15 +97,13 @@ function showFeedback(){
 
 answerChoices.addEventListener("click", function (event) {
   var pElement = document.getElementsByClassName("feedback")[0]
-  // evaluation of user's answer choices & feedback
+  
   if (answer === event.target.textContent) {   
-      pElement.innerHTML = "YES!";
       setTimeout(hideFeedback,1225);
       console.log("correct");
       showFeedback();   
       
   } else {
-      pElement.innerHTML = "WRONG.";
       setTimeout(hideFeedback,1225);
       secondsLeft = secondsLeft - 15;
       console.log("wrong");
@@ -128,7 +126,7 @@ highScores.sort(function (a, b) {
 
 // display the scores
 for (var i = 0; i < highScores.length; i++) {
-    var newScores = document.createElement("li");
+    newScores = document.createElement("li");
     newScores.textContent = highScores[i].name + " - " + highScores[i].score;
     scoreList.appendChild(newScores);
 }

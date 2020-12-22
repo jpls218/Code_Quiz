@@ -11,13 +11,33 @@ body {
     order: 1px solid rgb(17, 17, 88);
 }
 
-/* #question_list{
-    display: none; */
+
 .answerChoice{
-    color: black;
+    color: black; 
 }
 
+#opening, #enter_name{
+    color: red;
+}
 
+.score_for_player{
+    color: red;
+    font-size: 20px;
+    text-align: center;
+}
+a{
+    color: red;
+}
+h1,h2,h3{
+   color: red;
+   font-size: 32px;
+   text-align: center;
+}
+#startButton, .submitBtn{
+    background-color: red;
+    padding: 12px 28px;
+    font-size: 16px;
+}
 
 #scoreboard{
     position: absolute;
