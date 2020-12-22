@@ -16,7 +16,7 @@ body {
     color: black; 
 }
 
-#opening, #enter_name{
+#opening, #enter_name, #time{
     color: red;
 }
 
