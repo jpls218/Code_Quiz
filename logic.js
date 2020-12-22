@@ -1,30 +1,41 @@
-var startButton = document.getElementById("start_button");
-var questions = document.getElementById("questions");
-var choiceA = document.getElementById("A");
-var choiceB = document.getElementById("B");
-var choiceC = document.getElementById("C");
-var choiceD = document.getElementById("D");
+var startButton = document.getElementById("startButton");
+var submitButton = document.querySelector("button.submitBtn");
 var score = document.getElementById("score");
-var timeEl = document.querySelector(".time");
+var timeEl = document.getElementById("time");
 var particularQuestion = document.getElementById("questions");
 var answerChoices = document.getElementById("answers");
+var submitScoreElement = document.querySelector("#submit-score");
+var userScoreElement = document.getElementById("user-score");
 var secondsLeft = 100;
 var questionNumber = -1;
 var answer;
+var scoreList = [];
 
-startButton.onclick = startQuiz;
 
-function startQuiz(){
-    var startScreen = document.querySelector("#start-screen");
-    startScreen.setAttribute("class", "hide");
-    document.removeAttribute("questions");
-    
-}  
+function startTimer() {
+ 
+  document.getElementById("start_page").classList.add('d-none');
+ 
+  document.getElementById("question_list").classList.remove('d-none');
+
+  // timer set and begins 120 second countdown
+  setTime();
+
+  // create questions to display
+  makeQuestions();
+}
+
+startButton.addEventListener("click", startTimer);
+submitButton.addEventListener("click", function (event) {
+    event.stopPropagation();
+    addScore();
+   
+});
 
 function setTime() {
-  var timerInterval = setInterval(function() {
+  var countdown = setInterval(function() {
     secondsLeft--;
-    timeEl.textContent = secondsLeft + " seconds left!";
+    timeEl.textContent = "Time: " + secondsLeft;
 
     if (secondsLeft === 0 || questionNumber === questions.length) {
       clearInterval(countdown);
@@ -32,7 +43,7 @@ function setTime() {
     }
   }, 1000);
 }
-setTime();
+
 
 function makeQuestions() {
   questionNumber++;
@@ -47,29 +58,82 @@ function makeQuestions() {
       var nextChoice = document.createElement("button");
 
       nextChoice.textContent = choices[i];
-      answerBtn = answerChoices.appendChild(nextChoice);
+      answerBtn = answerChoices.appendChild(nextChoice).setAttribute("class", "p-3 m-1 btn btn-light btn-block");
   }
 }
 
 
+function addScore () {
+  userNameInput = document.getElementById("userName").value
+  
+  // create a new object with name and score keys
+var newScore = {
+      name: userNameInput,
+      score: secondsLeft
+  };
+  // check if there are scores in local storage first and take value
+  //if not, make a blank array
+  var highScores = JSON.parse(localStorage.getItem("highScores") || "[]");
+  // push object into score array
+  highScores.push(newScore)
+  // turn objects into an array of strings + put it into local storage
+  localStorage.setItem("highScores", JSON.stringify(highScores));
+}
+function displayScore() {
+  document.getElementById("question_list").classList.add('d-none');
+  document.getElementById("submit-score").classList.remove('d-none');
+  userScoreElement.textContent = "FINAL SCORE: " + secondsLeft + ".";
+}
 
-function sendMessage() {
-    timeEl.textContent = "Game Over!";  
+function hideFeedback(){
+  var pElement = document.getElementsByClassName("feedback")[0]
+  pElement.style.display='none'
+}
+
+function showFeedback(){
+  var pElement = document.getElementsByClassName("feedback")[0]
+  pElement.removeAttribute('style');
+}
+
+answerChoices.addEventListener("click", function (event) {
+  var pElement = document.getElementsByClassName("feedback")[0]
+  // evaluation of user's answer choices & feedback
+  if (answer === event.target.textContent) {   
+      pElement.innerHTML = "YES!";
+      setTimeout(hideFeedback,1225);
+      console.log("correct");
+      showFeedback();   
+      
+  } else {
+      pElement.innerHTML = "WRONG.";
+      setTimeout(hideFeedback,1225);
+      secondsLeft = secondsLeft - 15;
+      console.log("wrong");
+      showFeedback();
+
+  }    
+  makeQuestions();
+});
+
+
+    // get the highScores list and turn it back into an object
+highScores = JSON.parse(localStorage.getItem("highScores") || "[]");
+scoreList = document.getElementById("score-list");
+
+// sort scores from high to low
+highScores.sort(function (a, b) {
+    return b.score - a.score;
+})
+
+
+// display the scores
+for (var i = 0; i < highScores.length; i++) {
+    var newScores = document.createElement("li");
+    newScores.textContent = highScores[i].name + " - " + highScores[i].score;
+    scoreList.appendChild(newScores);
 }
 
 
 
 
 
-// Select start button
-var startBtn = document.getElementById("bu");
-// Call startQuiz function on button click
-startBtn.onclick = startQuiz;
-// Function to start quiz
-function startQuiz() {
-var startScreen = document.querySelector("#start-screen");
-startScreen.setAttribute("class", "hide");
-}
-//displsy questions
-//user clicks on submit => compare user asnwers with correct answers
-//user hits sumbit = timer stops(quizz ends) = create an end function and a timer event
