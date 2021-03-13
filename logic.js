@@ -1,17 +1,75 @@
-var startButton = document.getElementById("startButton");
-var submitButton = document.querySelector("button.submitBtn");
-var score = document.getElementById("score");
-var timeEl = document.getElementById("time");
-var answerChoices = document.getElementById("answers");
-var userScoreElement = document.getElementById("user-score");
+var startButton = $("#startButton");
 var secondsLeft = 100;
-var questionNumber = -1;
+var questionNumber = 0;
+var timeLeft;
+var questions = [
+  {
+      title: "How many noses do slugs have?",
+      choices: ["1", "2", "3", "4"],
+      answer: "4"
+  },
+
+  {
+      title: "What direction do bats always fly out of a cave?",
+      choices: ["Right", "Left", "Down", "Up"],
+      answer: "Left"
+  },
+
+  {
+      title: "What material makes up a rhino's horn?",
+      choices: ["Dirt", "Clay", "Hair", "Skin"],
+      answer: "Hair"
+  },
+
+  {
+      title: "Which animal's brain is smaller than its eye?",
+      choices: ["Ostrich", "Seal", "Butteryfly", "Crocodile"],
+      answer: "Ostrich"
+  },
+
+  {
+      title: "Which of these do giraffes not have?",
+      choices: ["Legs", "Lungs", "Nose", "Vocal Chords"],
+      answer: "Vocal Chords"
+  },
+
+  {
+      title: "How many glasses of milk can one cow produce in its lifetime?",
+      choices: ["100,000", "125,000", "175,000", "200,000"],
+      answer: "200,000"
+  },
+
+  {
+      title: "How long does it take a slug to digest its food?",
+      choices: ["1 day", "1 week", "2 weeks", "1 month"],
+      answer: "2 weeks"
+  },
+
+  {
+      title: "How long can a snail sleep for?",
+      choices: ["4 hours", "13 hours", "1 day", "2 days"],
+      answer: "13 hours"
+  },
+
+  {
+      title: "Which animal is the only one that can't jump?",
+      choices: ["Elephant", "Zebra", "Yak", "Bison"],
+      answer: "Elephant"
+  },
+
+  {
+      title: "Which animal cannot vomit?",
+      choices: ["Snake", "Penguin", "Lizard", "Toad"],
+      answer: "Toad"
+  },
 
 
-var scoreList = document.getElementById("score-list");
+];
 
-var endQuiz = $("#submit-score");
-endQuiz.hide();
+
+
+var sub_score = $("#submit-score");
+sub_score.hide();
 
 var quizQuestions = $("#questions");
 quizQuestions.hide();
@@ -22,8 +80,8 @@ function startQuiz() {
   startScreen.hide();
 
   quizQuestions.removeAttr("style");
-  showQuestion(questions[0]);
-  $(".answer-choice").on('click', questionClick);
+  showQuestion(questions,0);
+  $(".choice").on('click', questionClick);
   startTimer();
 }
 
@@ -33,7 +91,7 @@ function startTimer() {
 
   var countdown = setInterval(function() {
     secondsLeft--;
-    timeEl.textContent = "Time: " + secondsLeft;
+    $("#secondsLeft").html(secondsLeft)
 
     if (secondsLeft === 0 || questionNumber === questions.length) {
       clearInterval(countdown);
@@ -42,134 +100,69 @@ function startTimer() {
   }, 1000);
 }
 
-function showQuestion() {
-  $("#QA-block").html(questions.title);
-  $("#buttonA").html(questions.choices[0]);
-  $("#buttonB").html(questions.choices[1]);
-  $("#buttonC").html(questions.choices[2]);
-  $("#buttonD").html(questions.choices[3]);
+function showQuestion(questions, q_num) {
+  var question = questions[q_num]
+  
+  $("#card-title").html(question.title);
+  console.log(question.title)
+  $("#button1").html(question.choices[0]);
+  $("#button2").html(question.choices[1]);
+  $("#button3").html(question.choices[2]);
+  $("#button4").html(question.choices[3]);
 }
 
-function
- 
-//   document.getElementById("start_page").classList.add('d-none');
- 
-//   document.getElementById("question_list").classList.remove('d-none');
-
-//   // timer set and begins 120 second countdown
-//   setTime();
-
-//   // create questions to display
-//   makeQuestions();
-// }
-
-// startButton.addEventListener("click", startTimer);
-// submitButton.addEventListener("click", function (event) {
-//     event.stopPropagation();
-//     addScore();
-   
-// });
-
-
-
-// function makeQuestions() {
-//   questionNumber++;
-//   answer = questions[questionNumber].answer;
-
-//   particularQuestion.textContent = questions[questionNumber].title;
-//   answerChoices.innerHTML = "";
-
-//   var choices = questions[questionNumber].choices;
-
-//   for (var i = 0; i < choices.length; i++) {
-//       var nextChoice = document.createElement("button");
-
-//       nextChoice.textContent = choices[i];
-//       answerBtn = answerChoices.appendChild(nextChoice).setAttribute("class", "p-3 m-1 btn btn-light btn-block");
-//   }
-// }
-
-
-// function addScore () {
-//   userNameInput = document.getElementById("userName").value
-//   console.log(userNameInput);
+function questionClick(event) {
   
-//   // create a new object with name and score keys
-//   var newScore = {
-//       name: userNameInput,
-//       score: secondsLeft
-//   };
-//   // check if there are scores in local storage first and take value
-//   //if not, make a blank array
-//   var highScores = JSON.parse(localStorage.getItem("highScores") || "[]");
-//   console.log(highScores);
-//   // push object into score array
-//   highScores.push(newScore)
-//   // turn objects into an array of strings + put it into local storage
-//   localStorage.setItem("highScores", JSON.stringify(highScores));
-//   //newScore.appendTo("#score-list");
-//   // highScores.sort(function (a, b) {
-//   //   return b.score - a.score;
-//   // })  
-//   // for (var i = 0; i < highScores.length; i++) {
-//   document.createElement("li");
-//   scoreList.innerHTML = highScores;
-//   return highScores;
-//   }
-// // }
-// function displayScore() {
-//   document.getElementById("question_list").classList.add('d-none');
-//   document.getElementById("submit-score").classList.remove('d-none');
-//   userScoreElement.textContent = "FINAL SCORE: " + secondsLeft + ".";
-// }
+  var target = $(this);
+  var answerClick = target.html();
+  console.log(answerClick);
+  var answer = questions[questionNumber].answer;
+  if (answer != answerClick) {
+    secondsLeft -= 10;
+    $("#ans").html("WRONG!");
+  } else {
+    $("#ans").html("CORRECT!")
+  }
+  nextQuestion();
+}
 
-// function hideFeedback(){
-//   var pElement = document.getElementsByClassName("feedback")[0]
-//   pElement.style.display='none'
-// }
+function endQuiz() {
+  timeLeft = secondsLeft;
+  quizQuestions.hide()
+  sub_score.removeAttr("style")
+  // $("#secondsLeft").attr("id", "time")
+}
 
-// function showFeedback(){
-//   var pElement = document.getElementsByClassName("feedback")[0]
-//   pElement.removeAttribute('style');
-// }
-
-// answerChoices.addEventListener("click", function (event) {
-//   var pElement = document.getElementsByClassName("feedback")[0]
+function nextQuestion() {
+  questionNumber++;
+  if (questionNumber > questions.length) {
+    endQuiz();
+  }
+  else {
   
-//   if (answer === event.target.textContent) {   
-//       setTimeout(hideFeedback,1225);
-//       console.log("correct");
-//       showFeedback();   
-      
-//   } else {
-//       setTimeout(hideFeedback,1225);
-//       secondsLeft = secondsLeft - 15;
-//       console.log("wrong");
-//       showFeedback();
-
-//   }    
-//   makeQuestions();
-// });
+  showQuestion(questions, questionNumber);
+  }
+}
 
 
-//     // get the highScores list and turn it back into an object
-// // highScores = JSON.parse(localStorage.getItem("highScores") || "[]");
-// // scoreList = document.getElementById("score-list");
 
-// // sort scores from high to low
-// // highScores.sort(function (a, b) {
-// //     return b.score - a.score;
-// // })
+function submitBtn(event) {
+  // get their initials
+  console.log(event)
+  var scoreName = $("#userName").val();
+  // get any previous high scores
+  var highScores = localStorage.getItem("btx111");
+  if (highScores) {
+    // save the high scores in localstorage
+    localStorage.setItem("btx111", highScores + "," + scoreName + ":" + timeLeft);
+    return;
+  }
+  localStorage.setItem("btx111", scoreName + ":" + timeLeft);
 
+}
 
-// // display the scores
-// // for (var i = 0; i < highScores.length; i++) {
-// //     newScores = document.createElement("li");
-// //     newScores.textContent = highScores[i].name + " - " + highScores[i].score;
-    
-    
-// // }
-
+$("#highscore").on("click", submitBtn);
+ 
 
 
 
