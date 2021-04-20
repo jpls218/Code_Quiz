@@ -144,8 +144,6 @@ function nextQuestion() {
   }
 }
 
-
-
 function submitBtn(event) {
   // get their initials
   console.log(event)
@@ -158,7 +156,6 @@ function submitBtn(event) {
     return;
   }
   localStorage.setItem("btx111", scoreName + ":" + timeLeft);
-
 }
 
 $("#highscore").on("click", submitBtn);
